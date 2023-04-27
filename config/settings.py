@@ -45,6 +45,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'board.apps.BoardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -89,8 +90,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',  # 사용할 엔진
+        'NAME': 'stc', # db 이름 
+        'USER':'root', # db접속 계정명
+        'PASSWORD': get_secret("DB_PASSWORD"), # 비밀번호
+        'HOST':'127.0.0.1', # 실제 db주소
+        'PORT':'3306', # 포트 번호
     }
 }
 
