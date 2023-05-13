@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load board_filter %}
+{% block content %}
 <div class="container my-3">
   <table class="table">
     <thead>
@@ -9,13 +11,21 @@
       </tr>
     </thead>
     <tbody>
-      {% if question_list %} {% for question in question_list %}
+      {% if question_list %} 
+      {% for question in question_list %}
       <tr>
-        <td>{{ forloop.counter }}</td>
+        <td>
+          <!-- 번호 = 전체 건수 - 시작인덱스 - 현재인덱스 +1-->
+          {{question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1}}
+        </td>
+        
         <td>
           <a href="{% url 'board:detail' question.id %}"
             >{{ question.subject }}</a
           >
+          {% if question.answer_set.count > 0 %}
+          <span class="text-danger small mx-2">{{question.answer_set.count}}</span>
+          {% endif %}
         </td>
         <td>{{ question.create_date }}</td>
       </tr>
@@ -26,10 +36,11 @@
       {% endif %}
     </tbody>
   </table>
-</div>
-<a href="{% url 'board:question_create' %}" class="btn btn-primary"
+  <a href="{% url 'board:question_create' %}" class="btn btn-primary"
   >질문 등록하기</a
 >
+</div>
+
 <!-- 페이징처리 시작 -->
 <ul class="pagination justify-content-center">
   <!-- 맨 앞 으로 가기-->
