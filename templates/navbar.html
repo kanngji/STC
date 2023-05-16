@@ -18,7 +18,14 @@
         <li class="nav-item d-flex">
           <a class="nav-link" href="{% url 'list:index' %}">코미디언</a>
           <a class="nav-link" href="{% url 'board:index' %}">게시판</a>
-          <a class="nav-link" href="#">로그인</a>
+          {% if user.is_authenticated %}
+          <a class="nav-link" href="{% url 'common:logout' %}">{{user.username}} (로그아웃)</a>
+          {% else %}
+          <a class="nav-link" href="{% url 'common:login' %}">로그인</a>
+          {% endif %}
+          {% if not user.is_authenticated %}
+          <a class="nav-link" href="{% url 'common:signup' %}">회원가입</a>
+          {% endif %}
         </li>
       </ul>
     </div>
