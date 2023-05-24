@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path , include
-from board import views
+from board.views import base_views
 
 
 urlpatterns = [
@@ -23,5 +23,5 @@ urlpatterns = [
     path('board/',include('board.urls')),
     path('list/',include('list.urls')),
     path('common/',include('common.urls')),
-    path('',views.index,name='index'), # '/' 에 해당되는 path
+    path('',base_views.index,name='index'), # '/' 에 해당되는 path
 ]
