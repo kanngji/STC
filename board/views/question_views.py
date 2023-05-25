@@ -48,3 +48,21 @@ def question_delete(request, question_id):
         return redirect('board:detail', question_id=question.id)
     question.delete()
     return redirect('board:index')
+
+@login_required(login_url='common:login')
+def question_like_vote(request,question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.author:
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        question.like_voter.add(request.user)
+    return redirect('board:detail',question_id=question.id)
+
+@login_required(login_url='common:login')
+def question_dislike_vote(request,question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user == question.author:
+        messages.error(request, '본인이 작성한 글은 비추천할수 없습니다')
+    else:
+        question.dislike_voter.add(request.user)
+    return redirect('board:detail',question_id=question.id)

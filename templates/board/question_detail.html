@@ -29,6 +29,15 @@
         </div>
       </div>
       <div class="my-3">
+        <!-- 좋아요와 싫어요 추가하기-->
+        <a href="javascript:void(0)" data-uri="{% url 'board:question_like_vote' question.id %}"
+          class ="like btn btn-sm btn-outline-secondary">추천
+        <span class="badge rounded-pill bg-success">{{question.like_voter.count}}</span></a>
+
+        <a href="javascript:void(0)" data-uri="{% url 'board:question_dislike_vote' question.id %}"
+          class ="dislike btn btn-sm btn-outline-secondary">비추천
+        <span class="badge rounded-pill bg-danger">{{question.dislike_voter.count}}</span></a>
+
         <!-- 수정하기와 삭제하기는 작성자와 login user가 같아야 됨-->
         {% if request.user == question.author %}
         <a href="{% url 'board:question_modify' question.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
@@ -109,6 +118,24 @@ Array.from(delete_elements).forEach(function(element) {
             location.href = this.dataset.uri;
         };
     });
+});
+
+const like_elements = document.getElementsByClassName("like");
+Array.from(like_elements).forEach(function(element){
+  element.addEventListener('click',function(){
+    if(confirm('정말로 추천하시겠습니까?')){
+      location.href=this.dataset.uri;
+    };
+  });
+});
+
+const dislike_elements = document.getElementsByClassName("dislike");
+Array.from(dislike_elements).forEach(function(element){
+  element.addEventListener('click',function(){
+    if(confirm('정말로 비추천하시겠습니까?')){
+      location.href=this.dataset.uri;
+    };
+  });
 });
 </script>
 {% endblock %}
