@@ -51,6 +51,7 @@
     {{question.answer_set.count}}개의 답변이 있습니다.
   </h5>
   {% for answer in question.answer_set.all %}
+  <a id="answer_{{answer.id}}"></a>
   <div class="card my-3">
     <div class="card-body">
       <div class="card-text" style="white-space: pre-line">
@@ -68,6 +69,14 @@
           <div>{{ answer.create_date }}</div>
       </div>
       <div class="my-3">
+        <!-- 좋아요와 싫어요 추가하기-->
+        <a href="javascript:void(0)" data-uri="{% url 'board:answer_like_vote' answer.id %}"
+          class ="like btn btn-sm btn-outline-secondary">추천
+        <span class="badge rounded-pill bg-success">{{answer.like_voter.count}}</span></a>
+
+        <a href="javascript:void(0)" data-uri="{% url 'board:answer_dislike_vote' answer.id %}"
+          class ="dislike btn btn-sm btn-outline-secondary">비추천
+        <span class="badge rounded-pill bg-danger">{{answer.dislike_voter.count}}</span></a>
         {% if request.user == answer.author %}
         <a href="{% url 'board:answer_modify' answer.id %}" class="btn btn-sm btn-outline-seco
         ">수정</a>
