@@ -8,6 +8,7 @@ class Person(models.Model):
     gender = models.CharField(max_length=10) # 성별 
     nationality = models.CharField(max_length=100) # 국적
     representataive_work = models.CharField(max_length=200) # 대표작
+    image = models.ImageField(upload_to='images/', null=True, blank=True) # 이미지
 
     def __str__(self):
         return self.name

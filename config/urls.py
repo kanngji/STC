@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from board.views import base_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -25,4 +27,4 @@ urlpatterns = [
     path('common/',include('common.urls')),
     path('',base_views.index,name='index'), # '/' 에 해당되는 path
     path('openmic/',include('openmic.urls')),
-]
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

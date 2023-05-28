@@ -4,12 +4,15 @@
 <div class="container my-3 d-flex">
   {% if comedian_list %} {% for comedian in comedian_list %}
   <div class="card p-2 m-3" style="width: 18rem">
-    <img src="..." class="card-img-top" alt="..." />
+    {% if comedian.image %}
+    <img src="{{comedian.image.url}}" class="card-img-top"/>
+    {% endif %}
     <div class="card-body">
       <h5 class="card-title">{{comedian.name}}</h5>
       <h5 class="card-title">{{comedian.gender}}</h5>
       <h5 class="card-title">{{comedian.nationality}}</h5>
       <p class="card-text">{{comedian.representataive_work}}</p>
+    
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>
