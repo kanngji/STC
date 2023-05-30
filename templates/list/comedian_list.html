@@ -1,35 +1,27 @@
 {% extends 'base.html'%} {% block content %}
 <!-- 코미디언 추가는 로그인한 관리자만 추가할수있게 보이게 -->
-<button>코미디언 추가</button>
-<div class="container my-3 d-flex">
-  {% if comedian_list %} {% for comedian in comedian_list %}
-  <div class="card p-2 m-3" style="width: 18rem">
-    {% if comedian.image %}
-    <img src="{{comedian.image.url}}" class="card-img-top"/>
+<div class="container my-3">
+  <div class="row">
+    {% if comedian_list %}
+      {% for comedian in comedian_list %}
+        <div class="col-md-4">
+          <div class="card p-2 m-3" style="width: 100%; height: 100%;">
+            {% if comedian.image %}
+              <img src="{{comedian.image.url}}" class="card-img-top img-fluid" style="width:100%; height:100%"/>
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{comedian.name}}</h5>
+              <h5 class="card-title">{{comedian.gender}}</h5>
+              <h5 class="card-title">{{comedian.nationality}}</h5>
+              <p class="card-text">{{comedian.representataive_work}}</p>
+              <a href="#" class="btn btn-primary">추가중</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>아직 준비중입니다</p>
     {% endif %}
-    <div class="card-body">
-      <h5 class="card-title">{{comedian.name}}</h5>
-      <h5 class="card-title">{{comedian.gender}}</h5>
-      <h5 class="card-title">{{comedian.nationality}}</h5>
-      <p class="card-text">{{comedian.representataive_work}}</p>
-    
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
   </div>
-  {% endfor %} {% else %}
-  <p>아직 준비중입니다</p>
-  {% endif %}
-
-  <!-- <form action="{% url 'list:person_create' %}" method="post">
-  {% csrf_token %}
-  <textarea name="name" id="name" rows="3"></textarea>
-  <textarea name="gender" id="gender" rows="3"></textarea>
-  <textarea name="nationality" id="nationality" rows="3"></textarea>
-  <textarea
-    name="representataive_work"
-    id="representataive_work"
-    rows="15"
-  ></textarea>
-</form> -->
 </div>
 {% endblock %}
